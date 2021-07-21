@@ -1,7 +1,7 @@
 "# django-base-app" 
 
 API base app
-_login, logout, authen_
+_login, logout, authentication_
 _location Vietnamese_
 
 **RUN**
