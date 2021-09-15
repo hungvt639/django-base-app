@@ -4,6 +4,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'zk0$gntbg9vn-u*92k=wanlad0961u*j@@y99n(vhxq^&qi8ms'
+REFRESH_TOKEN_SECRET = 's90$g#dd5ls7-u*92k=wsjshsyu*j@@y99n(1#s?45s7^9slss'
+ACTIVE_KEY = 'fdskj*09J6,7-u*92k=ws()JDSH987>Iyg%4)1#ssds52@$^Gs'
 
 DEBUG = True
 
@@ -18,8 +20,8 @@ INSTALLED_APPS = [
     'Users',
     'App',
     'API',
-    'rest_framework.authtoken',
-    'django_rest_passwordreset',
+    # 'rest_framework.authtoken',
+    # 'django_rest_passwordreset',
     'corsheaders',
     'oauth2_provider',
     'django_cleanup',
@@ -30,10 +32,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'Users.authentication.SafeJWTAuthentication',
     ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
@@ -158,3 +157,11 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 ALLOWED_HOSTS = ['*']
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'zamasu3690@gmail.com'
+EMAIL_HOST_PASSWORD = 'iyodbsztewjqsuwk'
+EMAIL_PORT = 587
+
+HOST_FRONTEND = "http://localhost:3000"

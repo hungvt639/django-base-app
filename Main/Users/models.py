@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.dispatch import receiver
-from django.urls import reverse
-from django_rest_passwordreset.signals import reset_password_token_created
-from django.core.mail import send_mail
+# from django.dispatch import receiver
+# from django.urls import reverse
+# from django_rest_passwordreset.signals import reset_password_token_created
+# from django.core.mail import send_mail
+from django.utils.translation import gettext_lazy as _
 
 GENDER_CHOICE = [
     (1, "Nam"),
@@ -13,20 +14,12 @@ GENDER_CHOICE = [
 
 
 class MyUsers(AbstractUser):
-    # user = models.ForeignKey(MyUsers, on_delete=models.CASCADE, blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    gender = models.IntegerField(choices=GENDER_CHOICE, default=1, blank=True, null=True)
-    address = models.CharField(max_length=100, blank=True, null=True)
-    birthday = models.DateField(blank=True, null=True)
-    avatar = models.FileField(upload_to='image/avatar', blank=True, null=True, default="avatar.jpg")
+    email = models.EmailField(_('email address'), max_length=200, unique=True)
+    phone = models.CharField(_('phone'), max_length=15, blank=True, null=True)
+    gender = models.IntegerField(_('gender'), choices=GENDER_CHOICE, default=1, blank=True, null=True)
+    address = models.CharField(_('address'), max_length=100, blank=True, null=True)
+    birthday = models.DateField(_('birthday'), blank=True, null=True)
+    avatar = models.FileField(_('avatar'), upload_to='image/avatar', blank=True, null=True, default="avatar.jpg")
+    time_create = models.DateTimeField(_('time create'), auto_now_add=True)
+    time_update = models.DateTimeField(_('time update'), auto_now=True)
 
-
-@receiver(reset_password_token_created)
-def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
-    email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
-    send_mail(
-        "Password Reset for {title}".format(title="Some website title"),
-        email_plaintext_message,
-        'my-email',
-        [reset_password_token.user.email]
-    )

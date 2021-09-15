@@ -2,6 +2,7 @@ from .models import MyUsers
 from rest_framework import serializers
 from django.contrib.auth.models import Group
 import re
+
 r = re.compile(r'^\d{0}?(0|9)\d{9}$')
 
 
@@ -17,13 +18,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyUsers
-        fields = ['id', 'groups', 'email', 'first_name', 'last_name', 'phone', 'gender', 'address', 'birthday', 'avatar']
+        fields = ['id', 'groups', 'email', 'first_name', 'last_name', 'phone', 'gender', 'address', 'birthday',
+                  'avatar']
 
 
 class EditAvatar(serializers.ModelSerializer):
     class Meta:
         model = MyUsers
-        fields = ['avatar',]
+        fields = ['avatar']
 
 
 class EditUserSerializer(serializers.ModelSerializer):
@@ -32,7 +34,8 @@ class EditUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyUsers
-        fields = ['id', 'email', 'first_name', 'last_name', 'phone', 'gender', 'address', 'birthday', 'avatar', 'groups']
+        fields = ['id', 'email', 'first_name', 'last_name', 'phone', 'gender', 'address', 'birthday', 'avatar',
+                  'groups']
 
     def validate(self, attrs):
         if not r.search(attrs.get("phone")):
@@ -41,12 +44,11 @@ class EditUserSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MyUsers
-        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name', 'avatar']
-        write_only_fields = ('password', )
-        read_only_fields = ('id', )
+        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']
+        write_only_fields = ('password',)
+        read_only_fields = ('id',)
 
     def create(self, validated_data):
         user = MyUsers.objects.create(
@@ -54,6 +56,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
+            is_active=False,
         )
         user.set_password(validated_data['password'])
         user.save()

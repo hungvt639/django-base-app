@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+</head>
+<body>
+<div class="width100" style="width: 100%;
+    background-color: #f9f9f9; padding: 100px 0;">
+    <div class="margin-auto"
+         style=" margin: 0 auto;  max-width: 640px;  background-color: white; border-radius: 5px; padding: 50px; color: #000000;">
+        {% block extends %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

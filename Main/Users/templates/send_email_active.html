@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block extends %}
+
+<h3>Hi {{message.fullname}}</h3>
+<div class="content" style="width: 100%;">
+    <p>Cảm ơn bạn đã đăng ký tài khoản trên hệ thống của chúng tôi! Nhấp vào bên dưới để kích hoạt tài khoản của
+        bạn:</p>
+    <div class="btn" style="width: 100%; text-align: center;">
+        <a style="text-decoration: none;" href="{{message.href}}">
+            <button style="padding: 15px 20px; background-color: #5865f2; color: white; border: none; border-radius: 5px; margin: auto; cursor: pointer;">
+                Kích hoạt
+            </button>
+        </a></div>
+</div>
+
+{% endblock %}
