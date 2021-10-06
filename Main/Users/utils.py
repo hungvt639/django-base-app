@@ -36,3 +36,15 @@ def generate_active_token(user):
         refresh_token_payload, settings.ACTIVE_KEY, algorithm='HS256').decode('utf-8')
 
     return active_token
+
+
+def generate_reset_password_token(user):
+    refresh_token_payload = {
+        'user_id': user.id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, minutes=5),
+        'iat': datetime.datetime.utcnow()
+    }
+    token = jwt.encode(
+        refresh_token_payload, settings.RESET_PASS_KEY, algorithm='HS256').decode('utf-8')
+
+    return token

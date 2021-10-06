@@ -6,6 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zk0$gntbg9vn-u*92k=wanlad0961u*j@@y99n(vhxq^&qi8ms'
 REFRESH_TOKEN_SECRET = 's90$g#dd5ls7-u*92k=wsjshsyu*j@@y99n(1#s?45s7^9slss'
 ACTIVE_KEY = 'fdskj*09J6,7-u*92k=ws()JDSH987>Iyg%4)1#ssds52@$^Gs'
+RESET_PASS_KEY = 'fd1dj*0Jh^*(y(^a2k=wsa_0@$Dkmka98yg%4)1#s$@Fh>/aGa'
 
 DEBUG = True
 
@@ -18,12 +19,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Users',
-    'App',
     'API',
     # 'rest_framework.authtoken',
     # 'django_rest_passwordreset',
     'corsheaders',
-    'oauth2_provider',
+    # 'oauth2_provider',
     'django_cleanup',
 ]
 
